@@ -1,29 +1,23 @@
 import React from 'react';
 import './App.css';
+import Home from './Home';
+import Yi from './team/yi/yi'
+import Sammy from './team/sammy/sammy'
+import Steven from './team/steven/steven'
+import FAQ from './faq'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="https://picsum.photos/400" alt="random picsum"/>
-        <p>
-          Welcome to React Playground! <br></br>
-          Click to join your workspace
-        </p>
-
-        <ul>
-          <li><a className="App-link" href="google.com">Sammy</a></li>
-          <li><a className="App-link" href="google.com">Steven</a></li>
-          <li><a className="App-link" href="google.com">Yi</a></li>
-        </ul>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-        >
-          React Documentation
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Switch>
+          <Route component={Home} exact path="/" />
+          <Route component={Yi} exact path="/yi" />
+          <Route component={Sammy} exact path="/sammy" />
+          <Route component={Steven} exact path="/steven" />
+          <Route component={FAQ} exact path="/faq" />
+        </Switch>
+    </Router>
   );
 }
 
