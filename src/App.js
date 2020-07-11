@@ -1,7 +1,8 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Home from './Home';
-import Yi from './team/yi/yi'
+import {navBar} from './team/yi'
 import Sammy from './team/sammy/sammy'
 import Steven from './team/steven/steven'
 import FAQ from './faq'
@@ -12,7 +13,7 @@ function App() {
     <Router>
         <Switch>
           <Route component={Home} exact path="/" />
-          <Route component={Yi} exact path="/yi" />
+          <Route component={navBar} exact path="/yi" />
           <Route component={Sammy} exact path="/sammy" />
           <Route component={Steven} exact path="/steven" />
           <Route component={FAQ} exact path="/faq" />
