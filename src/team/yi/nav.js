@@ -21,8 +21,33 @@ function navBar() {
                     </Nav>
                 </Navbar.Collapse>
                 </Navbar>
-                <img src="https://picsum.photos/500/1500" alt='test'/>
             </header>
+            <div class="container">
+                <img src="https://picsum.photos/500/1000" alt='test'/>
+                <footer class="border-top">
+                    <div class="row">
+                        <div class="col">
+                            <img src="https://picsum.photos/50/50" alt='footer-test'/>
+                            <small class="d-block mb-3 text-muted"> &copy; 2020</small>
+                        </div>
+                        <h5>Links</h5>
+                        <div class="col">
+                            <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Our Team</a></li>
+                            <li><a class="text-muted" href="#">Volunteer</a></li>
+                            <li><a class="text-muted" href="#">Blog</a></li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Reclass</a></li>
+                            <li><a class="text-muted" href="#">About Us</a></li>
+                            <li><a class="text-muted" href="#">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </footer>
+            </div>
         </div>
     );
 }

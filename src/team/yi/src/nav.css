@@ -27,3 +27,11 @@
     border: solid;
     background-color: darkgray;
 }
+
+.row {
+    background-color: 	#D3D3D3;
+}
+
+#footer-pic {
+    margin-left: 20vw
+}
