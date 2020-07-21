@@ -1,0 +1,28 @@
+.image {
+   position: relative;
+   zoom: 1;
+   display: inline-block;
+   border-style:solid;
+   /* width: 100%;
+   height: 100% */
+}
+
+.icons {
+   position: absolute;
+   display: flex !important;
+   justify-content: center;
+   flex-direction: column;
+   right: 0;
+   top: 430px;
+}
+
+
+.icon {
+   margin: 5px;
+   display: flex !important;
+   visibilty: visible !important;
+}
+
+.icon:hover {
+   cursor: pointer;
+}
