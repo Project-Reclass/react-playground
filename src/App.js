@@ -8,6 +8,10 @@ import Steven from './team/steven/steven'
 import FAQ from './faq'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
+
+import ReactDOM from 'react-dom';
+import Draggable from 'react-draggable';
+
 function App() {
   return (
     <Router>
@@ -21,5 +25,7 @@ function App() {
     </Router>
   );
 }
+
+ 
 
 export default App;
