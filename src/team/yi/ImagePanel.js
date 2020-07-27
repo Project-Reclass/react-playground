@@ -1,18 +1,15 @@
-import React, {useRef, useState} from 'react';
-import ReactDOM from 'react-dom';
+import React, {useRef, useState, useEffect} from 'react';
 import './src/ImagePanel.css'
-import image from './src/image.png'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchPlus, faSearchMinus, faExpand, faEyeSlash} from '@fortawesome/free-solid-svg-icons'
-import Draggable, {DraggableCore} from 'react-draggable'; 
+import Draggable from 'react-draggable'; 
 
 function ImagePanel() {
 
-    const [zoom, setZoom] = useState(true);
-    const [hideImage, setHideImage] = useState(false);
-    const [toggleMax, setMax] = useState(false)
-    const imageRef = useRef()
-
+  const [zoom, setZoom] = useState(true);
+  const [hideImage, setHideImage] = useState(false);
+  const [toggleMax, setMax] = useState(false)
+  const imageRef = useRef()
   let [dimensions, setDimensions] = useState({ 
     height: null,
     width: null
@@ -29,6 +26,7 @@ function ImagePanel() {
   let [src, setSrc] = useState("")
   const [drags, setDrags] = useState(0)
   const [pos, setPos] = useState({x: 282, y: 282})
+  const [maxRes, setMaxRes] = useState({height: null, width: null, prevHeight: null, prevWidth: null})
 
   const handleDrag = (e, ui) => {
     const {x, y} = pos;
@@ -63,66 +61,101 @@ function ImagePanel() {
     setSrc(image)
     }
     
-    function plusClick() {
-        setZoom(zoom => zoom + .1)
-        setContentDimensions({
-            height: contentDimensions.height + 20,
-            width: contentDimensions.width + 20
-          })
-    }
+  function plusClick() {
+      setZoom(zoom => zoom + .1)
+      setContentDimensions({
+          height: contentDimensions.height + 20,
+          width: contentDimensions.width + 20
+        })
+  }
 
-    function minusClick() {
-        setZoom(zoom => zoom - .1)
-        setContentDimensions({
-            height: contentDimensions.height - 20,
-            width: contentDimensions.width - 20
-          })
-    }
+  function minusClick() {
+      setZoom(zoom => zoom - .1)
+      setContentDimensions({
+          height: contentDimensions.height - 20,
+          width: contentDimensions.width - 20
+        })
+  }
 
-    function maxClick() {
-        return (
-            setMax(!toggleMax)
-        )
+  useEffect(() => {
+    if (toggleMax == true) {
+      setContentDimensions({
+        height: maxRes.height,
+        width: maxRes.width
+      })
+    } else {
+      setContentDimensions({
+        height: maxRes.height,
+        width: maxRes.width
+      })
     }
+    }, [maxRes])
 
-    function hideClick() {
-        return (
-            setHideImage(!hideImage)
-        )
+  function maxClick() {
+    setMax(!toggleMax)
+    console.log(containerDimensions.height)
+    console.log(contentDimensions.height)
+    console.log(toggleMax)
+    if (toggleMax == false) {
+      setMaxRes({
+        height: containerDimensions.height,
+        width: containerDimensions.width,
+        prevHeight: contentDimensions.height,
+        prevWidth: contentDimensions.width
+      })
+      setPos({
+        x: 0, y:0
+      })
+    } else {
+      setMaxRes({
+        height: maxRes.prevHeight,
+        width: maxRes.prevHeight,
+        prevHeight: maxRes.height,
+        prevWidth: maxRes.width
+      })
+      setPos({
+        x: 475, y:475
+      })
     }
+  }
+
+  function hideClick() {
+      return (
+          setHideImage(!hideImage)
+      )
+  }
     
-    return ( 
-        <div>
-            <div className="imageContainer" style={{height: '700px', width: '700px', overflow: "auto", padding: '0px'}}>
-                <div className="imageSpace" style={{height: containerDimensions.height || "690px", width: containerDimensions.width || "690px", padding: "0"}}>
-                    <Draggable
-                        handle=".handle"
-                        // defaultPosition={pos}
-                        position={pos}
-                        scale={1}
-                        onStart={onStart}
-                        onDrag={handleDrag}
-                        onStop={onStop}
-                        bounds="parent">
-                            <div className="handle" style={{height: contentDimensions.height || "125px", width: contentDimensions.width || "125px", padding: "0"}}>
-                            <div>
-                                <button onClick={() => setImage("https://picsum.photos/200", setPos({x:475,y:475}))}>Image 200px</button> <br></br>
-                                <button onClick={() => setImage("https://picsum.photos/300", setPos({x:475,y:475}))}>Image 300px</button> <br></br>
-                                <button onClick={() => setImage("https://picsum.photos/400", setPos({x:475,y:475}))}>Image 400px</button> <br></br>
-                                <img className="image" style={{ zoom, visibility: hideImage ? "hidden" : "visible", width: toggleMax ? "100%" : "", height: toggleMax ? "100%" : ""}} 
-                                src= {image} alt="" ref={imageRef} onLoad={imageLoad}/> 
-                            </div>
-                            </div>
-                        </Draggable>
-                    </div>
-                </div>
-            <div className="icons">
-                <button className="iconButtons" onClick={plusClick}><FontAwesomeIcon className="icon" icon={faSearchPlus} /></button>
-                <button className="iconButtons" onClick={minusClick}><FontAwesomeIcon className="icon" icon={faSearchMinus} /></button>
-                <button className="iconButtons" onClick={maxClick}><FontAwesomeIcon className="icon" icon={faExpand} /></button>
-                <button className="iconButtons" onClick={hideClick}><FontAwesomeIcon className="icon" icon={faEyeSlash} /></button>
-            </div>
-        </div>
+  return ( 
+      <div>
+          <div className="imageContainer" style={{height: '700px', width: '700px', overflow: "auto", padding: '0px'}}>
+              <div className="imageSpace" style={{height: containerDimensions.height || "690px", width: containerDimensions.width || "690px", padding: "0"}}>
+                  <Draggable
+                      handle=".handle"
+                      position={pos}
+                      scale={1}
+                      onStart={onStart}
+                      onDrag={handleDrag}
+                      onStop={onStop}
+                      bounds="parent">
+                          <div className="handle" style={{height: contentDimensions.height || "125px", width: contentDimensions.width || "125px", padding: "0"}}>
+                          <div>
+                              <button onClick={() => setImage("https://picsum.photos/200", setPos({x:475,y:475}))}>Image 200px</button> <br></br>
+                              <button onClick={() => setImage("https://picsum.photos/300", setPos({x:475,y:475}))}>Image 300px</button> <br></br>
+                              <button onClick={() => setImage("https://picsum.photos/400", setPos({x:475,y:475}))}>Image 400px</button> <br></br>
+                              <img className="image" style={{ zoom, visibility: hideImage ? "hidden" : "visible", width: toggleMax ? "100%" : "", height: toggleMax ? "100%" : ""}} 
+                              src= {image} alt="" ref={imageRef} onLoad={imageLoad}/> 
+                          </div>
+                          </div>
+                      </Draggable>
+                  </div>
+              </div>
+          <div className="icons">
+              <button className="iconButtons" onClick={plusClick}><FontAwesomeIcon className="icon" icon={faSearchPlus} /></button>
+              <button className="iconButtons" onClick={minusClick}><FontAwesomeIcon className="icon" icon={faSearchMinus} /></button>
+              <button className="iconButtons" onClick={maxClick}><FontAwesomeIcon className="icon" icon={faExpand} /></button>
+              <button className="iconButtons" onClick={hideClick}><FontAwesomeIcon className="icon" icon={faEyeSlash} /></button>
+          </div>
+      </div>
     )
 }
 
