@@ -17,6 +17,9 @@ function Home() {
             <Link to='/sammy'>
                 <li className="App-link">Sammy</li>
             </Link>
+            <Link to='/scott'>
+                <li className="App-link">Scott</li>
+            </Link>
             <Link to='/steven'>
                 <li className="App-link">Steven</li>
             </Link>

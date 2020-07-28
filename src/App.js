@@ -5,12 +5,9 @@ import Home from './Home';
 import Yi from './team/yi/yi'
 import Sammy from './team/sammy/sammy'
 import Steven from './team/steven/steven'
+import Scott from './team/scott/scott'
 import FAQ from './faq'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-
-
-import ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
 
 function App() {
   return (
@@ -20,6 +17,7 @@ function App() {
           <Route component={Yi} exact path="/yi" />
           <Route component={Sammy} exact path="/sammy" />
           <Route component={Steven} exact path="/steven" />
+          <Route component={Scott} exact path="/scott" />
           <Route component={FAQ} exact path="/faq" />
         </Switch>
     </Router>
